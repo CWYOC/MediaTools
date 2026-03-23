@@ -53,6 +53,13 @@ def build_ffmpeg_command(input_path: Path, output_path: Path, quality: str, targ
     raise ValueError("Unsupported output format")
 
 
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({
+        "message": "Media Tools backend is running.",
+        "routes": ["/health", "/convert-video"]
+    })
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({"status": "ok"})
