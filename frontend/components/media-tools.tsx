@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 
-const API_BASE = "http://127.0.0.1:5001";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:5001";
 
 type ToolKey = "image" | "video";
 
