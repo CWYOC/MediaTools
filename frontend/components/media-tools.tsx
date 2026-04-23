@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:5001";
@@ -129,10 +130,7 @@ function ImageConverter() {
             className="hidden"
             onChange={(e) => onFileChange(e.target.files?.[0] || undefined)}
           />
-          <button
-            onClick={() => inputRef.current?.click()}
-            className="mt-4 rounded-xl bg-black px-4 py-2 text-white"
-          >
+          <button onClick={() => inputRef.current?.click()} className="mt-4 rounded-xl bg-black px-4 py-2 text-white">
             Choose Image
           </button>
         </div>
@@ -142,11 +140,7 @@ function ImageConverter() {
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <div>
             <label className="mb-2 block text-sm font-medium">Output format</label>
-            <select
-              value={outputFormat}
-              onChange={(e) => setOutputFormat(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-3 py-2"
-            >
+            <select value={outputFormat} onChange={(e) => setOutputFormat(e.target.value)} className="w-full rounded-xl border border-gray-200 px-3 py-2">
               <option value="image/png">PNG</option>
               <option value="image/jpeg">JPG</option>
               <option value="image/webp">WEBP</option>
@@ -155,29 +149,15 @@ function ImageConverter() {
 
           <div>
             <label className="mb-2 block text-sm font-medium">Quality: {quality}%</label>
-            <input
-              type="range"
-              min="10"
-              max="100"
-              value={quality}
-              onChange={(e) => setQuality(Number(e.target.value))}
-              className="w-full"
-            />
+            <input type="range" min="10" max="100" value={quality} onChange={(e) => setQuality(Number(e.target.value))} className="w-full" />
           </div>
         </div>
 
         <div className="mt-6 flex gap-3">
-          <button
-            onClick={handleConvert}
-            disabled={!file || busy}
-            className="rounded-xl bg-black px-5 py-3 text-white disabled:opacity-50"
-          >
+          <button onClick={handleConvert} disabled={!file || busy} className="rounded-xl bg-black px-5 py-3 text-white disabled:opacity-50">
             {busy ? "Converting..." : "Convert Image"}
           </button>
-          <button
-            onClick={resetAll}
-            className="rounded-xl border border-gray-300 px-5 py-3"
-          >
+          <button onClick={resetAll} className="rounded-xl border border-gray-300 px-5 py-3">
             Reset
           </button>
         </div>
@@ -197,17 +177,11 @@ function ImageConverter() {
             ) : null}
           </div>
         ) : (
-          <div className="mt-4 rounded-xl border border-dashed p-6 text-sm text-gray-500">
-            No image selected yet.
-          </div>
+          <div className="mt-4 rounded-xl border border-dashed p-6 text-sm text-gray-500">No image selected yet.</div>
         )}
 
         {convertedUrl ? (
-          <a
-            href={convertedUrl}
-            download={convertedName}
-            className="mt-6 inline-block rounded-xl bg-black px-5 py-3 text-white"
-          >
+          <a href={convertedUrl} download={convertedName} className="mt-6 inline-block rounded-xl bg-black px-5 py-3 text-white">
             Download {convertedName}
           </a>
         ) : null}
@@ -280,31 +254,16 @@ function VideoConverter() {
     <div className="grid gap-6 lg:grid-cols-2">
       <div className="rounded-3xl bg-white p-6 shadow-sm">
         <h2 className="text-2xl font-semibold">Video Converter</h2>
-        <p className="mt-2 text-sm text-gray-600">Upload a video and convert it on the backend with FFmpeg.</p>
+        <p className="mt-2 text-sm text-gray-600">Upload a video and convert it on the backend.</p>
 
-        <div
-          className="mt-6 rounded-2xl border-2 border-dashed border-gray-300 p-8 text-center"
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={(e) => {
-            e.preventDefault();
-            onFileChange(e.dataTransfer.files?.[0]);
-          }}
-        >
+        <div className="mt-6 rounded-2xl border-2 border-dashed border-gray-300 p-8 text-center" onDragOver={(e) => e.preventDefault()} onDrop={(e) => {
+          e.preventDefault();
+          onFileChange(e.dataTransfer.files?.[0]);
+        }}>
           <p className="font-medium">Drop your video here</p>
           <p className="mt-2 text-sm text-gray-500">MP4, MOV, AVI, MKV, WEBM and more</p>
-          <input
-            ref={inputRef}
-            type="file"
-            accept="video/*"
-            className="hidden"
-            onChange={(e) => onFileChange(e.target.files?.[0] || undefined)}
-          />
-          <button
-            onClick={() => inputRef.current?.click()}
-            className="mt-4 rounded-xl bg-black px-4 py-2 text-white"
-          >
-            Choose Video
-          </button>
+          <input ref={inputRef} type="file" accept="video/*" className="hidden" onChange={(e) => onFileChange(e.target.files?.[0] || undefined)} />
+          <button onClick={() => inputRef.current?.click()} className="mt-4 rounded-xl bg-black px-4 py-2 text-white">Choose Video</button>
         </div>
 
         {error ? <div className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</div> : null}
@@ -312,11 +271,7 @@ function VideoConverter() {
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           <div>
             <label className="mb-2 block text-sm font-medium">Output format</label>
-            <select
-              value={outputFormat}
-              onChange={(e) => setOutputFormat(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-3 py-2"
-            >
+            <select value={outputFormat} onChange={(e) => setOutputFormat(e.target.value)} className="w-full rounded-xl border border-gray-200 px-3 py-2">
               <option value="mp4">MP4</option>
               <option value="webm">WEBM</option>
               <option value="mov">MOV</option>
@@ -325,11 +280,7 @@ function VideoConverter() {
 
           <div>
             <label className="mb-2 block text-sm font-medium">Quality</label>
-            <select
-              value={quality}
-              onChange={(e) => setQuality(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-3 py-2"
-            >
+            <select value={quality} onChange={(e) => setQuality(e.target.value)} className="w-full rounded-xl border border-gray-200 px-3 py-2">
               <option value="high">High</option>
               <option value="standard">Standard</option>
               <option value="compressed">Compressed</option>
@@ -337,11 +288,7 @@ function VideoConverter() {
           </div>
         </div>
 
-        <button
-          onClick={handleConvert}
-          disabled={!file || loading}
-          className="mt-6 rounded-xl bg-black px-5 py-3 text-white disabled:opacity-50"
-        >
+        <button onClick={handleConvert} disabled={!file || loading} className="mt-6 rounded-xl bg-black px-5 py-3 text-white disabled:opacity-50">
           {loading ? "Converting..." : "Convert Video"}
         </button>
       </div>
@@ -356,17 +303,11 @@ function VideoConverter() {
             <div className="rounded-xl bg-gray-50 p-3"><strong>Convert to:</strong> {outputFormat.toUpperCase()}</div>
           </div>
         ) : (
-          <div className="mt-4 rounded-xl border border-dashed p-6 text-sm text-gray-500">
-            No video selected yet.
-          </div>
+          <div className="mt-4 rounded-xl border border-dashed p-6 text-sm text-gray-500">No video selected yet.</div>
         )}
 
         {downloadUrl ? (
-          <a
-            href={downloadUrl}
-            download={downloadName}
-            className="mt-6 inline-block rounded-xl bg-black px-5 py-3 text-white"
-          >
+          <a href={downloadUrl} download={downloadName} className="mt-6 inline-block rounded-xl bg-black px-5 py-3 text-white">
             Download {downloadName}
           </a>
         ) : null}
@@ -378,30 +319,30 @@ function VideoConverter() {
 export default function MediaTools() {
   const [activeTool, setActiveTool] = useState<ToolKey>("image");
 
-  const tabs = useMemo(
-    () => [
-      { key: "image" as ToolKey, label: "Image Converter" },
-      { key: "video" as ToolKey, label: "Video Converter" },
-    ],
-    []
-  );
+  const tabs = useMemo(() => [
+    { key: "image" as ToolKey, label: "Image Converter" },
+    { key: "video" as ToolKey, label: "Video Converter" },
+  ], []);
 
   return (
     <main className="min-h-screen bg-gray-50 px-4 py-10">
       <div className="mx-auto max-w-6xl">
-        <h1 className="text-4xl font-bold tracking-tight">Media Tools</h1>
-        <p className="mt-3 text-gray-600">
-          A website with both image and video conversion tools.
-        </p>
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h1 className="text-4xl font-bold tracking-tight">Media Tools</h1>
+            <p className="mt-3 text-gray-600">Image conversion, video conversion, and a timeline-based editor.</p>
+          </div>
+          <Link href="/editor" className="rounded-xl bg-black px-5 py-3 text-white">
+            Open Video Editor
+          </Link>
+        </div>
 
         <div className="mt-8 flex gap-3">
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTool(tab.key)}
-              className={`rounded-xl px-4 py-2 ${
-                activeTool === tab.key ? "bg-black text-white" : "bg-white text-black border border-gray-300"
-              }`}
+              className={`rounded-xl px-4 py-2 ${activeTool === tab.key ? "bg-black text-white" : "border border-gray-300 bg-white text-black"}`}
             >
               {tab.label}
             </button>

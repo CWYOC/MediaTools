@@ -1,12 +1,16 @@
 # Media Tools
 
 This project includes:
-- Browser-based image converter
-- FFmpeg-based video converter
+- Image converter
+- Video converter
+- Premiere-lite video editor
+- Shared upload/media transfer layer
 
-## Frontend
+## Local backend
 
 ```bash
-cd frontend
-npm install
-npm run dev
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install -r requirements.txt
+python3 app.py
